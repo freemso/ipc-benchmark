@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     if (fork() == 0) { /* Child process */
         sum = 0;
         gettimeofday(&begin, NULL);
-        for (i = 0; i < count; i++) {
+        while (sum != count * size) {
             n = read(pipefd[0], buf, size);
             if (n == -1) {
                 perror("read");
@@ -42,12 +42,12 @@ int main(int argc, char *argv[]) {
             }
             sum += n;
         }
-        if (sum != count * size) {
-            return 1;
-        }
         gettimeofday(&end, NULL);
 
-        print_result(&begin, &end, size, count);
+        printf("%f\n", get_delta_timeofday(&begin, &end));
+        fflush(stdout);
+
+        // print_result(&begin, &end, size, count);
     } else { /* Parent process */
         for (i = 0; i < count; i++) {
             memset(buf, i + '0', size);

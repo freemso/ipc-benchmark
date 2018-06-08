@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
  
     // msgget creates a message queue
     // and returns identifier
-    msgid = msgget(key, 0666 | IPC_CREAT);
+    msgid = msgget(IPC_PRIVATE, 0666 | IPC_CREAT);
     if (msgid == -1) {
         perror("msgget");
         return 1;
@@ -58,16 +58,19 @@ int main(int argc, char *argv[]) {
         }
         gettimeofday(&end, NULL);
 
-        print_result(&begin, &end, size, count);
+        printf("%f\n", get_delta_timeofday(&begin, &end));
+        fflush(stdout);
+
+        // print_result(&begin, &end, size, count);
 
         // Remove the queue
         if (msgctl(msgid, IPC_RMID, NULL) == -1) {
             perror("Error removing message queue");
         }
     } else { /* Parent process */
+        buf->mtype = 1;
         for (i = 0; i < count; i++) {
-            memset(buf->mtext, i + '0', size);
-            buf->mtype = 1;
+            // memset(buf->mtext, i + '0', size);
              // msgsnd to send message
             if (msgsnd(msgid, buf, size, 0) == -1) {
                 perror("wirte");
