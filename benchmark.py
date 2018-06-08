@@ -11,7 +11,7 @@ def benchmark(prog):
     for count in [200]:
         for size in [200]:
             data_size = size * count / 1e6
-            cp = subprocess.run([prog, str(size), str(count)], stdout=subprocess.PIPE, shell=True)
+            cp = subprocess.run([prog, str(size), str(count)], stdout=subprocess.PIPE)
             p_output = cp.stdout
             result += "Data size: {} megabytes.\tChunk size: {} bytes.\tTime cost: {} seconds.\n\n".format(str(data_size), str(size), str(p_output))
     return result
