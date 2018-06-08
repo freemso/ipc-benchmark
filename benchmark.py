@@ -18,8 +18,8 @@ def benchmark(prog):
 
 
 
-pipe_result = benchmark("./pipe")
-msgq_result = benchmark("./msgq")
+pipe_result = benchmark("./pipe.out")
+msgq_result = benchmark("./msgq.out")
 
 output_dir = "./output/"
 if not os.path.exists(output_dir):
