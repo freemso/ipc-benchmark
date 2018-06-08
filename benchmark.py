@@ -8,8 +8,8 @@ count_list = [1e3, 1e4, 1e5, 1e6]
 
 def benchmark(prog):
     result = ""
-    for count in [200]:
-        for size in [200]:
+    for count in count_list:
+        for size in size_list:
             data_size = size * count / 1e6
             cp = subprocess.run([prog, str(size), str(count)], stdout=subprocess.PIPE)
             p_output = cp.stdout.decode("utf8")
