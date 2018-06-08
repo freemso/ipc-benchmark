@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
         }
         gettimeofday(&end, NULL);
 
-        printf("%f\n", get_delta_timeofday(&begin, &end));
+        printf("%f", get_delta_timeofday(&begin, &end));
         fflush(stdout);
 
         // print_result(&begin, &end, size, count);
